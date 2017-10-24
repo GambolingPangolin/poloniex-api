@@ -14,20 +14,18 @@ module Network.Poloniex.Api (
 
   -- * Trading API
   , TradingAPI
-
-  -- * Auxiliary types
-  , Period (..)
   ) where
 
-import           Data.Aeson         (ToJSON (..), Value)
-import           Data.Map           (Map)
+import           Data.Aeson             (Value)
+import           Data.Map               (Map)
 import           Data.Proxy
-import           Data.Text          (Text)
-import qualified Data.Text          as T
-import           GHC.TypeLits       (KnownSymbol, Symbol, symbolVal)
+import           Data.Text              (Text)
+import qualified Data.Text              as T
+import           GHC.TypeLits           (KnownSymbol, Symbol, symbolVal)
+import           Network.Poloniex.Types
 import           Servant.API
-import           Servant.Client     (HasClient (..))
-import           Servant.Common.Req (appendToQueryString)
+import           Servant.Client         (HasClient (..))
+import           Servant.Common.Req     (appendToQueryString)
 
 --
 -- Public API
@@ -90,7 +88,7 @@ type ReturnChartData =
 type ReturnCurrencies =
   "public" :>
   HardParam "command" "returnCurrencies" :>
-  Get '[JSON] Value
+  Get '[JSON] (Map Text Value)
 
 -- | Loan orders endpoint
 type ReturnLoanOrders =
@@ -119,30 +117,3 @@ instance (KnownSymbol k, KnownSymbol v, HasClient api) => HasClient (HardParam k
     appendToQueryString name (Just val) req where
       name = T.pack $ symbolVal (Proxy :: Proxy k)
       val  = T.pack $ symbolVal (Proxy :: Proxy v)
-
---
--- Helper types
---
-
-data Period =
-  P300
-  | P900
-  | P1800
-  | P7200
-  | P14400
-  | P86400
-  deriving (Eq, Show)
-
-toInt :: Period -> Int
-toInt P300   = 300
-toInt P900   = 900
-toInt P1800  = 1800
-toInt P7200  = 7200
-toInt P14400 = 14400
-toInt P86400 = 86400
-
-instance ToJSON Period where
-  toJSON = toJSON . toInt
-
-instance ToHttpApiData Period where
-  toQueryParam = toQueryParam . toInt

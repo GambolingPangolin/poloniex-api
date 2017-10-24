@@ -36,7 +36,7 @@ main = do
         res `shouldSatisfy` isRight
 
       it "Order book" $ do
-        res <- runC $ returnOrderBook Nothing Nothing
+        res <- runC $ returnOrderBook "XMR_BTC" Nothing
         res `shouldSatisfy` isRight
 
       it "Trade history" $ do

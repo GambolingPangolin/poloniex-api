@@ -19,6 +19,7 @@ library
     Network.Poloniex
     , Network.Poloniex.Api
     , Network.Poloniex.Push
+    , Network.Poloniex.Types
   build-depends:       
     aeson
     , base >= 4.7 && < 5
