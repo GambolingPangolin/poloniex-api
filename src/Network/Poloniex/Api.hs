@@ -109,7 +109,7 @@ type TradingAPI =
   :<|> GenerateNewAddress
   :<|> ReturnDepositsWithdrawals
   :<|> ReturnOpenOrders
-  :<|> ReturnTradeHistory
+  :<|> ReturnTradeHistoryPriv
   :<|> ReturnOrderTrades
   :<|> Buy
   :<|> Sell
@@ -139,157 +139,216 @@ tradingAPI = Proxy
 type ReturnBalances =
   "public" :>
   HardParam "command" "returnBalances" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   Get '[JSON] Value
 
 type ReturnCompleteBalances =
   "public" :>
   HardParam "command" "returnCompleteBalances" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnDepositAddresses =
   "public" :>
   HardParam "command" "returnDepositAddresses" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   Get '[JSON] Value
 
 type GenerateNewAddress =
   "public" :>
   HardParam "command" "generateNewAddress" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnDepositsWithdrawals =
   "public" :>
   HardParam "command" "returnDepositsWithdrawals" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnOpenOrders =
   "public" :>
   HardParam "command" "returnOpenOrders" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
-type ReturnTradeHistory =
+type ReturnTradeHistoryPriv =
   "public" :>
   HardParam "command" "returnTradeHistory" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnOrderTrades =
   "public" :>
   HardParam "command" "returnOrderTrades" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type Buy =
   "public" :>
   HardParam "command" "buy" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type Sell =
   "public" :>
   HardParam "command" "sell" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type CancelOrder =
   "public" :>
   HardParam "command" "cancelOrder" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type MoveOrder =
   "public" :>
   HardParam "command" "moveOrder" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type Withdraw =
   "public" :>
   HardParam "command" "withdraw" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnFeeInfo =
   "public" :>
   HardParam "command" "returnFeeInfo" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   Get '[JSON] Value
 
 type ReturnAvailableAccountBalances =
   "public" :>
   HardParam "command" "returnAvailableAccountBalances" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnTradableBalances =
   "public" :>
   HardParam "command" "returnTradableBalances" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   Get '[JSON] Value
 
 type TransferBalance =
   "public" :>
   HardParam "command" "transferBalance" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnMarginAccountSummary =
-  "public" :> HardParam "command" "returnMarginAccountSummary"
+  "public" :>
+  HardParam "command" "returnMarginAccountSummary" :>
+  Header "Key" String :>
+  Header "Sign" String :>
+  Get '[JSON] Value
 
 type MarginBuy =
   "public" :>
   HardParam "command" "marginBuy" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type MarginSell =
   "public" :>
   HardParam "command" "marginSell" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type GetMarginPosition =
   "public" :>
   HardParam "command" "getMarginPosition" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type CloseMarginPosition =
   "public" :>
   HardParam "command" "closeMarginPosition" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type CreateLoanOffer =
   "public" :>
   HardParam "command" "createLoanOffer" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type CancelLoanOffer =
   "public" :>
   HardParam "command" "cancelLoanOffer" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ReturnOpenLoanOffers =
-  "public" :> HardParam "command" "returnOpenLoanOffers" :>
+  "public" :>
+  HardParam "command" "returnOpenLoanOffers" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   Get '[JSON] Value
 
 type ReturnActiveLoans =
   "public" :>
   HardParam "command" "returnActiveLoans" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   Get '[JSON] Value
 
 type ReturnLendingHistory =
   "public" :> HardParam "command" "returnLendingHistory" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
 type ToggleAutoRenew =
   "public" :>
   HardParam "command" "toggleAutoRenew" :>
+  Header "Key" String :>
+  Header "Sign" String :>
   ReqBody '[JSON] Value :>
   Post '[JSON] Value
 
