@@ -14,6 +14,7 @@ module Network.Poloniex.Api (
 
   -- * Trading API
   , TradingAPI
+  , tradingAPI
   ) where
 
 import           Data.Aeson             (Value)
@@ -101,7 +102,196 @@ type ReturnLoanOrders =
 -- Trading API
 --
 
-type TradingAPI = ()
+type TradingAPI =
+  ReturnBalances
+  :<|> ReturnCompleteBalances
+  :<|> ReturnDepositAddresses
+  :<|> GenerateNewAddress
+  :<|> ReturnDepositsWithdrawals
+  :<|> ReturnOpenOrders
+  :<|> ReturnTradeHistory
+  :<|> ReturnOrderTrades
+  :<|> Buy
+  :<|> Sell
+  :<|> CancelOrder
+  :<|> MoveOrder
+  :<|> Withdraw
+  :<|> ReturnFeeInfo
+  :<|> ReturnAvailableAccountBalances
+  :<|> ReturnTradableBalances
+  :<|> TransferBalance
+  :<|> ReturnMarginAccountSummary
+  :<|> MarginBuy
+  :<|> MarginSell
+  :<|> GetMarginPosition
+  :<|> CloseMarginPosition
+  :<|> CreateLoanOffer
+  :<|> CancelLoanOffer
+  :<|> ReturnOpenLoanOffers
+  :<|> ReturnActiveLoans
+  :<|> ReturnLendingHistory
+  :<|> ToggleAutoRenew
+
+-- | Proxy value for the trading API
+tradingAPI :: Proxy TradingAPI
+tradingAPI = Proxy
+
+type ReturnBalances =
+  "public" :>
+  HardParam "command" "returnBalances" :>
+  Get '[JSON] Value
+
+type ReturnCompleteBalances =
+  "public" :>
+  HardParam "command" "returnCompleteBalances" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnDepositAddresses =
+  "public" :>
+  HardParam "command" "returnDepositAddresses" :>
+  Get '[JSON] Value
+
+type GenerateNewAddress =
+  "public" :>
+  HardParam "command" "generateNewAddress" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnDepositsWithdrawals =
+  "public" :>
+  HardParam "command" "returnDepositsWithdrawals" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnOpenOrders =
+  "public" :>
+  HardParam "command" "returnOpenOrders" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnTradeHistory =
+  "public" :>
+  HardParam "command" "returnTradeHistory" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnOrderTrades =
+  "public" :>
+  HardParam "command" "returnOrderTrades" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type Buy =
+  "public" :>
+  HardParam "command" "buy" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type Sell =
+  "public" :>
+  HardParam "command" "sell" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type CancelOrder =
+  "public" :>
+  HardParam "command" "cancelOrder" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type MoveOrder =
+  "public" :>
+  HardParam "command" "moveOrder" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type Withdraw =
+  "public" :>
+  HardParam "command" "withdraw" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnFeeInfo =
+  "public" :>
+  HardParam "command" "returnFeeInfo" :>
+  Get '[JSON] Value
+
+type ReturnAvailableAccountBalances =
+  "public" :>
+  HardParam "command" "returnAvailableAccountBalances" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnTradableBalances =
+  "public" :>
+  HardParam "command" "returnTradableBalances" :>
+  Get '[JSON] Value
+
+type TransferBalance =
+  "public" :>
+  HardParam "command" "transferBalance" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnMarginAccountSummary =
+  "public" :> HardParam "command" "returnMarginAccountSummary"
+
+type MarginBuy =
+  "public" :>
+  HardParam "command" "marginBuy" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type MarginSell =
+  "public" :>
+  HardParam "command" "marginSell" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type GetMarginPosition =
+  "public" :>
+  HardParam "command" "getMarginPosition" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type CloseMarginPosition =
+  "public" :>
+  HardParam "command" "closeMarginPosition" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type CreateLoanOffer =
+  "public" :>
+  HardParam "command" "createLoanOffer" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type CancelLoanOffer =
+  "public" :>
+  HardParam "command" "cancelLoanOffer" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ReturnOpenLoanOffers =
+  "public" :> HardParam "command" "returnOpenLoanOffers" :>
+  Get '[JSON] Value
+
+type ReturnActiveLoans =
+  "public" :>
+  HardParam "command" "returnActiveLoans" :>
+  Get '[JSON] Value
+
+type ReturnLendingHistory =
+  "public" :> HardParam "command" "returnLendingHistory" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
+
+type ToggleAutoRenew =
+  "public" :>
+  HardParam "command" "toggleAutoRenew" :>
+  ReqBody '[JSON] Value :>
+  Post '[JSON] Value
 
 --
 -- HardParam
